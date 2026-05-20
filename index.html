@@ -115,12 +115,12 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
   <div class="hdr-icon">🏥</div>
   <div>
     <div class="hdr-title">Elektronisch Patiëntendossier</div>
-    <div class="hdr-sub">EPD — Clinical data view</div>
+    <div class="hdr-sub">EPD — Klinische gegevensweergave</div>
   </div>
   <div class="hdr-badge">LIVE</div>
 </div>
 
-<!-- PATIENT STRIP -->
+<!-- PATIËNTSTROOK -->
 <div class="patient-strip">
   <div class="patient-avatar">JV</div>
   <div>
@@ -132,13 +132,13 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
 
 <div class="body">
 
-  <!-- CARE PROVIDER -->
+  <!-- ZORGVERLENER -->
   <div class="sec">
-    <div class="sec-hdr"><span class="dot"></span>Care Provider</div>
+    <div class="sec-hdr"><span class="dot"></span>Zorgverlener</div>
     <div class="sec-body">
       <div class="grid">
         <div class="field full">
-          <label>Treating provider</label>
+          <label>Behandelend zorgverlener</label>
           <select id="fProvider">
             <option>Dr. A. de Vries — Huisarts, Amsterdam</option>
             <option>Dr. M. Jansen — Specialist, Utrecht</option>
@@ -148,7 +148,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
           </select>
         </div>
         <div class="field">
-          <label>Specialism</label>
+          <label>Specialisme</label>
           <select id="fSpec">
             <option>Huisartsgeneeskunde</option>
             <option>Psychiatrie</option>
@@ -159,74 +159,74 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
           </select>
         </div>
         <div class="field">
-          <label>AGB code</label>
+          <label>AGB-code</label>
           <input type="text" id="fAGB" value="01-034821">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TREATMENT -->
+  <!-- BEHANDELING -->
   <div class="sec">
-    <div class="sec-hdr"><span class="dot"></span>Treatment</div>
+    <div class="sec-hdr"><span class="dot"></span>Behandeling</div>
     <div class="sec-body">
       <div class="grid">
         <div class="field">
-          <label>Treatment date</label>
+          <label>Behandeldatum</label>
           <input type="date" id="fTreatDate" value="2026-04-15">
         </div>
         <div class="field">
-          <label>End date (expected)</label>
+          <label>Einddatum (verwacht)</label>
           <input type="date" id="fEndDate" value="2026-07-15">
         </div>
         <div class="field full">
-          <label>DBC / Treatment reference</label>
+          <label>DBC / Behandelreferentie</label>
           <input type="text" id="fDBC" value="0303101200040 — GGZ Basis, Depressie licht">
         </div>
         <div class="field">
-          <label>Diagnosis code</label>
+          <label>Diagnosecode</label>
           <input type="text" id="fDiag" value="F32.0 — Depressieve episode, licht">
         </div>
         <div class="field">
-          <label>Treatment minutes</label>
+          <label>Behandelminuten</label>
           <input type="number" id="fMins" value="185" style="text-align:right;">
         </div>
       </div>
     </div>
   </div>
 
-  <!-- STATUS INDICATORS -->
+  <!-- STATUSOVERZICHT -->
   <div class="sec">
     <div class="sec-hdr"><span class="dot"></span>Status</div>
     <div class="sec-body">
 
       <div class="status-row">
-        <span class="status-label">Insurance status</span>
+        <span class="status-label">Verzekeringsstatus</span>
         <select class="status-select green" id="fInsurance" onchange="updateSelectColor(this)">
-          <option value="green">✓ Verified</option>
-          <option value="amber">⚠ Pending verification</option>
-          <option value="red">✕ Not covered</option>
-          <option value="blue">– Unknown</option>
+          <option value="green">✓ Geverifieerd</option>
+          <option value="amber">⚠ In behandeling</option>
+          <option value="red">✕ Niet gedekt</option>
+          <option value="blue">– Onbekend</option>
         </select>
       </div>
 
       <div class="status-row">
-        <span class="status-label">Referral status</span>
+        <span class="status-label">Verwijsstatus</span>
         <select class="status-select green" id="fReferral" onchange="updateSelectColor(this)">
-          <option value="green">✓ Active referral</option>
-          <option value="amber">⚠ Pending</option>
-          <option value="red">✕ Expired</option>
-          <option value="blue">– No referral required</option>
+          <option value="green">✓ Actieve verwijzing</option>
+          <option value="amber">⚠ In behandeling</option>
+          <option value="red">✕ Verlopen</option>
+          <option value="blue">– Geen verwijzing vereist</option>
         </select>
       </div>
 
       <div class="status-row">
-        <span class="status-label">DBC status</span>
+        <span class="status-label">DBC-status</span>
         <select class="status-select blue" id="fDBCStatus" onchange="updateSelectColor(this)">
           <option value="blue">● Open</option>
-          <option value="green">✓ Closed &amp; submitted</option>
-          <option value="amber">⚠ Awaiting validation</option>
-          <option value="red">✕ Rejected</option>
+          <option value="green">✓ Gesloten &amp; ingediend</option>
+          <option value="amber">⚠ Wacht op validatie</option>
+          <option value="red">✕ Afgewezen</option>
         </select>
       </div>
 
@@ -245,7 +245,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); font
     </div>
   </div>
 
-  <div class="last-updated">Last synced with EPD: today at 08:14 · Source: ZorgDomein</div>
+  <div class="last-updated">Laatste synchronisatie met EPD: vandaag om 08:14 · Bron: ZorgDomein</div>
 
 </div>
 
