@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infomedics — EPD</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:   #0060B0;
+  --primary-dk:#004A8C;
+  --teal:      #00A3A3;
+  --green:     #1A7A3C;
+  --green-bg:  #E8F5ED;
+  --amber:     #B45309;
+  --amber-bg:  #FEF3C7;
+  --red:       #B91C1C;
+  --red-bg:    #FEE2E2;
+  --bg:        #F4F7FB;
+  --surface:   #FFFFFF;
+  --border:    rgba(0,96,176,0.14);
+  --border-md: rgba(0,96,176,0.25);
+  --text:      #0F1B2D;
+  --sub:       #3D5166;
+  --muted:     #7A90A8;
+  --font:      'Segoe UI', system-ui, sans-serif;
+  --r:         6px;
+}
+
+body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 13px; }
+
+/* HEADER */
+.hdr { background: var(--primary); padding: 10px 14px; display: flex; align-items: center; gap: 10px; }
+.hdr-icon { width: 30px; height: 30px; background: rgba(255,255,255,0.15); border-radius: 6px;
+  display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.hdr-title { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
+.hdr-sub { font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 1px; }
+.hdr-badge { margin-left: auto; background: rgba(255,255,255,0.18); border-radius: 20px;
+  padding: 3px 10px; font-size: 10px; font-weight: 600; color: #fff; letter-spacing: 0.05em; }
+
+/* PATIENT STRIP */
+.patient-strip { background: #EBF2FA; border-bottom: 1px solid var(--border-md); padding: 8px 14px;
+  display: flex; align-items: center; gap: 12px; }
+.patient-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary);
+  color: #fff; font-weight: 700; font-size: 13px; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; }
+.patient-name { font-weight: 600; font-size: 13px; }
+.patient-meta { font-size: 11px; color: var(--sub); }
+.patient-id { margin-left: auto; font-size: 11px; font-family: monospace;
+  background: var(--surface); border: 1px solid var(--border-md); border-radius: 4px;
+  padding: 3px 8px; color: var(--sub); }
+
+/* BODY */
+.body { padding: 10px 12px; }
+
+/* SECTION */
+.sec { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+  overflow: hidden; margin-bottom: 8px; }
+.sec-hdr { padding: 6px 12px; border-bottom: 1px solid var(--border); background: var(--bg);
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.sec-hdr .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+.sec-body { padding: 10px 12px; }
+
+/* GRID */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.full { grid-column: span 2; }
+
+/* FIELD */
+.field label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.field select, .field input {
+  width: 100%; font-family: var(--font); font-size: 12px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border-md); border-radius: var(--r);
+  padding: 6px 9px; outline: none; transition: border-color 0.15s; }
+.field select:focus, .field input:focus {
+  border-color: var(--primary); box-shadow: 0 0 0 2px rgba(0,96,176,0.12); }
+
+/* STATUS BADGE */
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px;
+  border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge::before { content:''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.badge.green  { background: var(--green-bg);  color: var(--green);  }
+.badge.green::before  { background: var(--green); }
+.badge.amber  { background: var(--amber-bg);  color: var(--amber);  }
+.badge.amber::before  { background: var(--amber); }
+.badge.red    { background: var(--red-bg);    color: var(--red);    }
+.badge.red::before    { background: var(--red); }
+.badge.blue   { background: #EBF2FA;          color: var(--primary); }
+.badge.blue::before   { background: var(--primary); }
+
+/* STATUS ROW */
+.status-row { display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 0; border-bottom: 1px solid var(--border); }
+.status-row:last-child { border-bottom: none; padding-bottom: 0; }
+.status-label { font-size: 11px; font-weight: 600; color: var(--sub); }
+
+/* STATUS SELECT */
+.status-select { font-family: var(--font); font-size: 11px; font-weight: 600;
+  border: none; background: transparent; outline: none; cursor: pointer; text-align: right; }
+.status-select.green { color: var(--green); }
+.status-select.amber { color: var(--amber); }
+.status-select.red   { color: var(--red);   }
+.status-select.blue  { color: var(--primary); }
+
+/* LAST UPDATED */
+.last-updated { font-size: 10px; color: var(--muted); text-align: right; padding-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-icon">🏥</div>
+  <div>
+    <div class="hdr-title">Elektronisch Patiëntendossier</div>
+    <div class="hdr-sub">EPD — Clinical data view</div>
+  </div>
+  <div class="hdr-badge">LIVE</div>
+</div>
+
+<!-- PATIENT STRIP -->
+<div class="patient-strip">
+  <div class="patient-avatar">JV</div>
+  <div>
+    <div class="patient-name">J. van der Meer</div>
+    <div class="patient-meta">12-03-1978  ·  BSN 123 456 789</div>
+  </div>
+  <div class="patient-id">PAT-2024-00442</div>
+</div>
+
+<div class="body">
+
+  <!-- CARE PROVIDER -->
+  <div class="sec">
+    <div class="sec-hdr"><span class="dot"></span>Care Provider</div>
+    <div class="sec-body">
+      <div class="grid">
+        <div class="field full">
+          <label>Treating provider</label>
+          <select id="fProvider">
+            <option>Dr. A. de Vries — Huisarts, Amsterdam</option>
+            <option>Dr. M. Jansen — Specialist, Utrecht</option>
+            <option>Dr. S. Bakker — Psycholoog, Rotterdam</option>
+            <option>Dr. R. Smit — Fysiotherapeut, Den Haag</option>
+            <option>Dr. L. Visser — Cardioloog, Eindhoven</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Specialism</label>
+          <select id="fSpec">
+            <option>Huisartsgeneeskunde</option>
+            <option>Psychiatrie</option>
+            <option>Fysiotherapie</option>
+            <option>Cardiologie</option>
+            <option>Dermatologie</option>
+            <option>Neurologie</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>AGB code</label>
+          <input type="text" id="fAGB" value="01-034821">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TREATMENT -->
+  <div class="sec">
+    <div class="sec-hdr"><span class="dot"></span>Treatment</div>
+    <div class="sec-body">
+      <div class="grid">
+        <div class="field">
+          <label>Treatment date</label>
+          <input type="date" id="fTreatDate" value="2026-04-15">
+        </div>
+        <div class="field">
+          <label>End date (expected)</label>
+          <input type="date" id="fEndDate" value="2026-07-15">
+        </div>
+        <div class="field full">
+          <label>DBC / Treatment reference</label>
+          <input type="text" id="fDBC" value="0303101200040 — GGZ Basis, Depressie licht">
+        </div>
+        <div class="field">
+          <label>Diagnosis code</label>
+          <input type="text" id="fDiag" value="F32.0 — Depressieve episode, licht">
+        </div>
+        <div class="field">
+          <label>Treatment minutes</label>
+          <input type="number" id="fMins" value="185" style="text-align:right;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS INDICATORS -->
+  <div class="sec">
+    <div class="sec-hdr"><span class="dot"></span>Status</div>
+    <div class="sec-body">
+
+      <div class="status-row">
+        <span class="status-label">Insurance status</span>
+        <select class="status-select green" id="fInsurance" onchange="updateSelectColor(this)">
+          <option value="green">✓ Verified</option>
+          <option value="amber">⚠ Pending verification</option>
+          <option value="red">✕ Not covered</option>
+          <option value="blue">– Unknown</option>
+        </select>
+      </div>
+
+      <div class="status-row">
+        <span class="status-label">Referral status</span>
+        <select class="status-select green" id="fReferral" onchange="updateSelectColor(this)">
+          <option value="green">✓ Active referral</option>
+          <option value="amber">⚠ Pending</option>
+          <option value="red">✕ Expired</option>
+          <option value="blue">– No referral required</option>
+        </select>
+      </div>
+
+      <div class="status-row">
+        <span class="status-label">DBC status</span>
+        <select class="status-select blue" id="fDBCStatus" onchange="updateSelectColor(this)">
+          <option value="blue">● Open</option>
+          <option value="green">✓ Closed &amp; submitted</option>
+          <option value="amber">⚠ Awaiting validation</option>
+          <option value="red">✕ Rejected</option>
+        </select>
+      </div>
+
+      <div class="status-row">
+        <span class="status-label">Zorgverzekeraar</span>
+        <select class="status-select blue" id="fInsurer" onchange="updateSelectColor(this)">
+          <option value="blue">Zilveren Kruis</option>
+          <option value="blue">VGZ</option>
+          <option value="blue">CZ</option>
+          <option value="blue">Menzis</option>
+          <option value="blue">DSW</option>
+          <option value="blue">ONVZ</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="last-updated">Last synced with EPD: today at 08:14 · Source: ZorgDomein</div>
+
+</div>
+
+<script>
+  function updateSelectColor(sel) {
+    sel.className = 'status-select ' + sel.options[sel.selectedIndex].value;
+  }
+
+  /* Puzzel Widget API */
+  const ORIGIN = 'https://agent.puzzel.com';
+  let port = null;
+  window.addEventListener('message', (e) => {
+    if (e.origin !== ORIGIN) return;
+    if (!port && e.ports?.[0]) {
+      port = e.ports[0];
+      port.onmessage = () => {};
+      port.postMessage({ subscribe: 'requestAccepted' });
+    }
+  });
+</script>
+</body>
+</html>
